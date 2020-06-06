@@ -1,0 +1,2 @@
+# simple-shop
+Django qualification
