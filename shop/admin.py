@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from .models import Product, Category
-# from .forms import ReviewAdminForm
 
 
 @admin.register(Product)
@@ -18,5 +17,3 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', )
     search_fields = ('name', )
     list_filter = ('name', )
-
-    # form = ReviewAdminForm

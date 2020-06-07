@@ -48,14 +48,20 @@
 
 
     </ul>
+    <h5><font color="#ffffff">{{ account_name }}</font></h5>
     <a class="btn btn-outline-success my-2 my-sm-0" role="button"
        href="./cart.html">
       Корзина</a>
 
-
-    <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="./login.html">
+    {% if is_authenticated %}
+      <a class="btn btn-outline-success my-2 my-sm-0" role="button"
+         href="./logout/">
+      Выйти</a>
+    {% else %}
+      <a class="btn btn-outline-success my-2 my-sm-0" role="button"
+         href="./login/">
       Войти</a>
+    {% endif %}
 
   </div>
 </nav>
