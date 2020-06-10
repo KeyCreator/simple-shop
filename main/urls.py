@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as authViews
 
-from shop.views import HomeView, SmartphoneView
+from shop.views import HomeView, CategoryView
 from account.views import LoginView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='index'),
-    path('smartphones/', SmartphoneView.as_view(), name='smartphones'),
+    path('category/', CategoryView.as_view(), name='category'),
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', authViews.LogoutView.as_view(), name='logout'),

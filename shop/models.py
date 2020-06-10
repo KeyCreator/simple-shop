@@ -11,6 +11,7 @@ class Product(models.Model):
     price = models.FloatField(verbose_name='Цена, руб.', blank=False, null=False)
     image = models.ImageField(upload_to=settings.STATICFILES_DIRS[0])
     category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='products')
+    for_main = models.BooleanField(verbose_name='Размещать на главной странице', default=False, blank=False, null=False)
 
     class Meta:
         verbose_name = 'Товар'
@@ -22,6 +23,12 @@ class Product(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=NAME_LENGTH, verbose_name='Наименование', unique=True, blank=False, null=False)
+    parent = models.ForeignKey('self',
+                               verbose_name='Состоит в',
+                               on_delete=models.DO_NOTHING,
+                               null=True,
+                               blank=True,
+                               related_name='followers')
 
     class Meta:
         verbose_name = 'Категория'

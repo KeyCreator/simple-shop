@@ -2,16 +2,11 @@
 {% load static %}
 {% block content %}
 <main role="main">
+  <div class="container">
+    <!-- Example row of columns -->
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-4">Добро пожаловать на сайт просто магазина</h1>
-      <p>Лучшие мобилы только у нас:</p>
-    </div>
-  </div>
+    <h1>Смартфоны</h1>
 
-
-  <div class="container mb-5">
       <div class="row">
         {% for product in products %}
           <div class="col-md-4">
@@ -30,36 +25,7 @@
     {% if prev_page_url %}<a class="button button-primary" href="{{ prev_page_url }}">⟵</a>{% endif %}
     <a class="button disabled" href="">{{ current_page }}</a>
     {% if next_page_url %}<a class="button button-primary" href="{{ next_page_url }}">⟶</a>{% endif %}
+
   </div> <!-- /container -->
-
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-4">Не знаете что одеть летом?</h1>
-      <p>Вот что мы можем предложить:</p>
-    </div>
-  </div>
-
-
-  <div class="container mb-5">
-    <!-- Example row of columns -->
-    <div class="row">
-
-      <div class="col-md-4">
-        <h2>Фуфайка</h2>
-
-        <a href="./phone.html">
-
-          <img src="./static/fufajka.jpg" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
-    </div>
-  </div> <!-- /container -->
-
 </main>
 {% endblock %}
