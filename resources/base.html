@@ -26,23 +26,30 @@
       </li>
 
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Гаджеты</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
+      {% for menu_item in categories_menu %}
+        <li class="nav-item dropdown">
+          {% if not menu_item.followers.count %}
+            <li class="nav-item">
+              <a class="nav-link" href="/category/{{ menu_item.id }}/">
+                {{ menu_item.name }}</a>
+            </li>
+          {% else %}
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             {{ menu_item.name }} </a>
 
-          <a class="dropdown-item" href="/category/">
-            Сматрфоны</a>
+             {% for sub_menu_item in menu_item.followers.all %}
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                  <a class="dropdown-item" href="/category/{{ sub_menu_item.id }}/">
+                    {{ sub_menu_item.name }}</a>
+                </div>
+              {% endfor %}
+          {% endif %}
+        </li>
+      {% endfor %}
 
-        </div>
-      </li>
 
 
-      <li class="nav-item">
-        <a class="nav-link" href="./empty_section.html">
-          Аксесcуары</a>
-      </li>
 
 
     </ul>
