@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from urllib.parse import urlencode
 
-from .models import Product, Category
+from .models import Product, Category, Cart
 from .utils import get_products_paginator
 
 
@@ -15,12 +15,10 @@ class HomeView(TemplateView):
         products = Product.objects.filter(for_main=True).order_by('-id')
         product_objs, current_page, prev_page, next_page = get_products_paginator(request, products, 2)
 
-        categories_menu = Category.objects.filter(parent=None).order_by('-id')
-
         return render(request, self.template_name, context={
             'is_authenticated': request.user.is_authenticated,
             'account_name': request.user.username if request.user.is_authenticated else 'Гость',
-            'categories_menu': categories_menu,
+            'categories_menu': Category.objects.filter(parent=None).order_by('-id'),
             'products': product_objs,
             'current_page': current_page,
             'prev_page_url': prev_page,
@@ -41,14 +39,25 @@ class CategoryView(TemplateView):
         products = Product.objects.filter(category=category)
         product_objs, current_page, prev_page, next_page = get_products_paginator(request, products, 2)
 
-        categories_menu = Category.objects.filter(parent=None).order_by('-id')
-
         return render(request, self.template_name, context={
             'is_authenticated': request.user.is_authenticated,
             'account_name': request.user.username if request.user.is_authenticated else 'Гость',
-            'categories_menu': categories_menu,
+            'categories_menu': Category.objects.filter(parent=None).order_by('-id'),
             'products': product_objs,
             'current_page': current_page,
             'prev_page_url': prev_page,
             'next_page_url': next_page,
+        })
+
+class CartView(TemplateView):
+    template_name = 'category.html'
+
+    def get(self, request):
+        products = Cart.objects.filter(user=request.user).order_by('-id')
+
+        return render(request, self.template_name, context={
+            'is_authenticated': request.user.is_authenticated,
+            'account_name': request.user.username if request.user.is_authenticated else 'Гость',
+            'categories_menu': Category.objects.filter(parent=None).order_by('-id'),
+            'products': products,
         })
