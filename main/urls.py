@@ -17,14 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as authViews
 
-from shop.views import HomeView, CategoryView, CartView, cart_add
+from shop.views import HomeView, CategoryView, CartListView, PhoneListView, cart_add
 from account.views import LoginView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='index'),
     path('category/<int:category_id>/', CategoryView.as_view(), name='category'),
-    path('cart/', CartView.as_view(), name='cart'),
+    path('cart/', CartListView.as_view(), name='cart'),
     path('cart_add/<int:product_id>/', cart_add, name='cart_add'),
+    path('phone/<int:product_id>/', PhoneListView.as_view(), name='phone'),
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', authViews.LogoutView.as_view(), name='logout'),

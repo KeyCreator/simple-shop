@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, ListView
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponseRedirect
@@ -37,6 +37,7 @@ class CategoryView(TemplateView):
         product_objs, current_page, prev_page, next_page = get_products_paginator(request, products, 2)
 
         return render(request, self.template_name, context={
+            'category_name': category.name,
             'products': product_objs,
             'current_page': current_page,
             'prev_page_url': prev_page,
@@ -44,7 +45,7 @@ class CategoryView(TemplateView):
         })
 
 
-class CartView(ListView):
+class CartListView(ListView):
     template_name = 'cart.html'
     # model = Cart
     context_object_name = 'purchases'
@@ -52,8 +53,16 @@ class CartView(ListView):
     def get_queryset(self):
         return Cart.objects.filter(user=self.request.user).order_by('-id')
 
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('login')
+        return super(CartListView, self).get(*args, **kwargs)
+
 
 def cart_add(request, product_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     product = Product.objects.get(id=product_id)
     if Cart.objects.filter(user=request.user, product=product).count():
         cart = Cart.objects.get(user=request.user, product=product)
@@ -64,3 +73,10 @@ def cart_add(request, product_id):
 
     return redirect(request.META.get('HTTP_REFERER'))
 
+
+class PhoneListView(ListView):
+    template_name = 'phone.html'
+    context_object_name = 'product'
+
+    def get_queryset(self, product_id):
+        return Product.objects.get(id=product_id)
