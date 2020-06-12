@@ -14,7 +14,8 @@
             <a href="/phone.html">
               <img src="{% static "nexus5x.webp" %}" width="180">
             </a>
-            <form>
+            <form action="{% url "cart_add" product.id %}" method="post">
+              {% csrf_token %}
               <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
             </form>
             <p>{{ product.price }} руб.</p>
