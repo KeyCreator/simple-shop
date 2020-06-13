@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, ListView
+from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from urllib.parse import urlencode
 
 from .models import Product, Category, Cart
 from .utils import get_products_paginator
+from .forms import PhoneForm
 
 
 class HomeView(TemplateView):
@@ -74,9 +77,8 @@ def cart_add(request, product_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-class PhoneListView(ListView):
+class PhoneDetailView(DetailView):
+    model = Product
     template_name = 'phone.html'
     context_object_name = 'product'
-
-    def get_queryset(self, product_id):
-        return Product.objects.get(id=product_id)
+    pk_url_kwarg = 'product_id'

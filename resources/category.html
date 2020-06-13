@@ -11,7 +11,7 @@
         {% for product in products %}
           <div class="col-md-4">
             <h2>{{ product.name }}</h2>
-            <a href="/phone.html">
+            <a href="/phone/{{ product.id }}">
               <img src="{% static "nexus5x.webp" %}" width="180">
             </a>
             <form action="{% url "cart_add" product.id %}" method="post">
