@@ -7,17 +7,7 @@
   <div class="container mt-3">
     <!-- Example row of columns -->
     <div class="row">
-      <div class="col-md-12">
-        <h2>{{ product.name }}</h2>
-
-        <img src="./static/nexus5x.webp" width="120">
-
-        <p>{{ product.description }}</p>
-            <form action="{% url "cart_add" product.id %}" method="post">
-              {% csrf_token %}
-              <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-            </form>
-      </div>
+      {% include "product_section.html" with product=product %}
     </div>
     <br>
     <h3>Раздел отзывовов в разработке</h3>

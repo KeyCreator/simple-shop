@@ -1,11 +1,13 @@
 from django.db import models
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 from account.models import CustomUser
 
 
 NAME_LENGTH = 128
 DESCRIPTION_LENGTH = 256
+STORAGE = FileSystemStorage(location=settings.MEDIA_ROOT)
 
 
 class Product(models.Model):
@@ -13,7 +15,7 @@ class Product(models.Model):
     name = models.CharField(max_length=NAME_LENGTH, verbose_name='Модель', blank=False, null=False)
     price = models.FloatField(verbose_name='Цена, руб.', blank=False, null=False)
     description = models.CharField(max_length=DESCRIPTION_LENGTH, verbose_name='Описание', default='')
-    image = models.ImageField(upload_to=settings.STATICFILES_DIRS[0])
+    image = models.ImageField(upload_to='images', storage=STORAGE)
     category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='products')
     for_main = models.BooleanField(verbose_name='Размещать на главной странице', default=False, blank=False, null=False)
     users = models.ManyToManyField('account.CustomUser',

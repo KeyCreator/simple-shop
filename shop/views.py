@@ -77,8 +77,8 @@ def cart_add(request, product_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-class PhoneDetailView(DetailView):
+class ProductDetailView(DetailView):
     model = Product
-    template_name = 'phone.html'
+    template_name = 'product.html'
     context_object_name = 'product'
     pk_url_kwarg = 'product_id'

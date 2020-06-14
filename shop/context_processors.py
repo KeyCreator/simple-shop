@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from .models import Category, Cart
 
 def menu_items(request):
