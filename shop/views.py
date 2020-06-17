@@ -6,9 +6,11 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from urllib.parse import urlencode
 
-from .models import Product, Category, Cart
+from .models import Product, Category
 from .utils import get_products_paginator
 from .forms import PhoneForm
+
+from cart.models import Cart
 
 
 class HomeView(TemplateView):
@@ -46,35 +48,6 @@ class CategoryView(TemplateView):
             'prev_page_url': prev_page,
             'next_page_url': next_page,
         })
-
-
-class CartListView(ListView):
-    template_name = 'cart.html'
-    # model = Cart
-    context_object_name = 'purchases'
-
-    def get_queryset(self):
-        return Cart.objects.filter(user=self.request.user).order_by('-id')
-
-    def get(self, *args, **kwargs):
-        if not self.request.user.is_authenticated:
-            return redirect('login')
-        return super(CartListView, self).get(*args, **kwargs)
-
-
-def cart_add(request, product_id):
-    if not request.user.is_authenticated:
-        return redirect('login')
-
-    product = Product.objects.get(id=product_id)
-    if Cart.objects.filter(user=request.user, product=product).count():
-        cart = Cart.objects.get(user=request.user, product=product)
-        cart.count += 1
-        cart.save()
-    else:
-        Cart.objects.create(user=request.user, product=product, count=1)
-
-    return redirect(request.META.get('HTTP_REFERER'))
 
 
 class ProductDetailView(DetailView):

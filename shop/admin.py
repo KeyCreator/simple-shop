@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models import Product, Category, Cart
+from .models import Product, Category
+
+from cart.models import Cart, Order
 
 
 class CartInline(admin.TabularInline):
@@ -26,9 +28,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    ordering = ('user', )
-    list_display = ('user', 'product', 'count', )
-    search_fields = ('user', 'product', )
-    list_filter = ('user', 'product', )
+    ordering = ('order', )
+    list_display = ('order', 'product', 'count', )
+    search_fields = ('order', 'product', )
+    list_filter = ('order', 'product', )
 
 
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    pass
