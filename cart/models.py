@@ -31,4 +31,4 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы покупателей'
 
     def __str__(self):
-        return f'№ {self.id} от {self.order_date}'
+        return f'№ {self.id} от {self.pay_date}'

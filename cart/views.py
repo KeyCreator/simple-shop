@@ -47,13 +47,20 @@ def cart_add(request, product_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-def order_pay(request, order_id):
+def order_pay(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     try:
-        order = Order.objects.get(id=order_id, is_paid=False)
+        order = Order.objects.get(user=request.user, is_paid=False)
     except Order.DoesNotExist:
-        return HttpResponse(f'При обработке заказа №{order.id} возникла ошибка')
+        return HttpResponse(f'При обработке заказа возникла ошибка')
 
     order.is_paid = True
     order.save()
 
-    return HttpResponse(f'Заказ №{order.id} обработан')
+    template = 'empty_section.html'
+
+    return render(request,
+                  template,
+                  context={'message': f'Заказ №{order.id} обработан'})

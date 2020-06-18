@@ -24,14 +24,11 @@
 
       </ul>
 
-      <form class="card p-2" action="{% url "order_pay" purchases.order.id %}" method="post">
+      <form class="card p-2" action="{% url "order_pay" %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-secondary">Заказать</button>
       </form>
 
-      <form class="card p-2">
-        <button type="submit" class="btn btn-secondary">Заказать</button>
-      </form>
     </div>
   </div>
 </div>
