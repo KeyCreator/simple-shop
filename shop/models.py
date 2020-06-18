@@ -14,12 +14,10 @@ class Product(models.Model):
     price = models.FloatField(verbose_name='Цена, руб.', blank=False, null=False)
     description = models.CharField(max_length=DESCRIPTION_LENGTH, verbose_name='Описание', default='')
     image = models.ImageField(upload_to='images', storage=STORAGE)
-    category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='products')
-    for_main = models.BooleanField(verbose_name='Размещать на главной странице', default=False, blank=False, null=False)
-    users = models.ManyToManyField('cart.Order',
+    orders = models.ManyToManyField('cart.Order',
                                    through='cart.Cart',
                                    through_fields=('product', 'order'),
-                                   related_name='buyers')
+                                   related_name='goods')
 
     class Meta:
         verbose_name = 'Товар'
@@ -45,3 +43,20 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Phone(Product):
+    category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='products')
+    for_main = models.BooleanField(verbose_name='Размещать на главной странице', default=False, blank=False, null=False)
+
+    class Meta:
+        verbose_name = 'Гаджет'
+        verbose_name_plural = 'Смартфоны и аксессуары'
+        ordering = ['-article']
+
+
+class Clothes(Product):
+
+    class Meta:
+        verbose_name = 'Одежда'
+        verbose_name_plural = 'Одежда'

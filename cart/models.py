@@ -14,7 +14,7 @@ class Cart(models.Model):
         verbose_name_plural = 'Наполнение заказов'
 
     def __str__(self):
-        return f'{self.user.email} {self.product.name} - {self.count}'
+        return f'{self.product.id} {self.product.name} - {self.count}'
 
 
 class Order(models.Model):

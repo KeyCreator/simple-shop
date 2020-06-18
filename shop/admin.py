@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, Category
+from .models import Phone, Category, Clothes    # , Product
 
 from cart.models import Cart, Order
 
@@ -9,8 +9,8 @@ class CartInline(admin.TabularInline):
     model = Cart
 
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+@admin.register(Phone)
+class PhoneAdmin(admin.ModelAdmin):
     ordering = ('category', )
     list_display = ('article', 'image', 'name', 'category', 'price', )
     search_fields = ('article', 'name', )
@@ -37,3 +37,13 @@ class CartAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     ordering = ('-id',)
+
+
+@admin.register(Clothes)
+class ClothesAdmin(admin.ModelAdmin):
+    ordering = ('-id',)
+
+
+# @admin.register(Product)
+# class ProductAdmin(admin.ModelAdmin):
+#     ordering = ('-id',)
