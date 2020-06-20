@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from urllib.parse import urlencode
 
-from .models import Product, Category, Phone
+from .models import Product, Category, Phone, Clothes
 from .utils import get_products_paginator
 from .forms import PhoneForm
 
@@ -18,13 +18,22 @@ class HomeView(TemplateView):
 
     def get(self, request):
         phones = Phone.objects.filter(for_main=True).order_by('-id')
-        phone_objs, current_page, prev_page, next_page = get_products_paginator(request, phones, 2)
+        phone_objs, phones_current_page, phones_prev_page, phones_next_page = \
+            get_products_paginator(request, phones, 2)
+
+        clothes = Clothes.objects.all().order_by('-id')
+        clothes_objs, clothes_current_page, clothes_prev_page, clothes_next_page = \
+            get_products_paginator(request, clothes, 2)
 
         return render(request, self.template_name, context={
             'phones': phone_objs,
-            'current_page': current_page,
-            'prev_page_url': prev_page,
-            'next_page_url': next_page,
+            'phones_current_page': phones_current_page,
+            'phones_prev_page_url': phones_prev_page,
+            'phones_next_page_url': phones_next_page,
+            'clothes': clothes_objs,
+            'clothes_current_page': clothes_current_page,
+            'clothes_prev_page_url': clothes_prev_page,
+            'clothes_next_page_url': clothes_next_page,
         })
 
 
@@ -35,8 +44,8 @@ class CategoryView(TemplateView):
 
         try:
             category = Category.objects.get(id=category_id)
-        except Poll.DoesNotExist:
-            raise Http404("Category does not exist")
+        except Category.DoesNotExist:
+            raise Http404("Такой категории товаров не существует")
 
         phones = Phone.objects.filter(category=category)
         phone_objs, current_page, prev_page, next_page = get_products_paginator(request, phones, 2)
