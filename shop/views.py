@@ -8,7 +8,7 @@ from urllib.parse import urlencode
 
 from .models import Product, Category, Phone, Clothes
 from .utils import get_products_paginator
-from .forms import PhoneForm
+from .forms import ProductForm
 
 from cart.models import Cart
 

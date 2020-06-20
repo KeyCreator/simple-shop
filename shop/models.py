@@ -6,6 +6,8 @@ from django.core.files.storage import FileSystemStorage
 NAME_LENGTH = 128
 DESCRIPTION_LENGTH = 256
 STORAGE = FileSystemStorage(location=settings.MEDIA_ROOT)
+ONE, TWO, THREE, FOUR, FIVE = 1, 2, 3, 4, 5
+ESTIMATE_CHOICES = [(ONE, '1'), (TWO, '2'), (THREE, '3'), (FOUR, '4'), (FIVE, '5')]
 
 
 class Product(models.Model):
@@ -60,3 +62,9 @@ class Clothes(Product):
     class Meta:
         verbose_name = 'Одежда'
         verbose_name_plural = 'Одежда'
+
+
+class Сomment(models.Model):
+    content = models.TextField(verbose_name='Содержание', blank=False, null=False)
+    estimation = models.IntegerField(verbose_name='Оценка', choices=ESTIMATE_CHOICES, blank=False, null=False)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='comments')

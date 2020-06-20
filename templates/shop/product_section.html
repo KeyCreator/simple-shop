@@ -1,3 +1,4 @@
+{% load formats %}
 <div class="col-md-4">
             <h2>{{ product.name }}</h2>
             <a href="/product/{{ product.id }}">
@@ -7,6 +8,6 @@
               {% csrf_token %}
               <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
             </form>
-            <p>{{ product.price }} руб.</p>
+            <p>{{ product.price|currency }}</p>
             <p>Артикул {{ product.article }}</p>
 </div>

@@ -50,11 +50,11 @@
 
     </ul>
     <h5><font color="#ffffff">{{ account_name }}</font></h5>
-    <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="/cart/">
-      Корзина{{ lot }}</a>
 
     {% if is_authenticated %}
+      <a class="btn btn-outline-success my-2 my-sm-0" role="button"
+       href="/cart/">
+      Корзина{{ lot }}</a>
       <a class="btn btn-outline-success my-2 my-sm-0" role="button"
          href="/logout/">
       Выйти</a>
@@ -62,6 +62,9 @@
       <a class="btn btn-outline-success my-2 my-sm-0" role="button"
          href="/login/">
       Войти</a>
+      <a class="btn btn-outline-success my-2 my-sm-0" role="button"
+        href="/auth/">
+      Регистрация</a>
     {% endif %}
 
   </div>
