@@ -36,7 +36,7 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    ordering = ('-id',)
+    ordering = ('-pay_date', '-id')
 
 
 @admin.register(Clothes)

@@ -1,0 +1,56 @@
+{
+  "Phone": [
+    {
+      "article": "0016",
+      "name": "Samsung Galaxy Note 8",
+      "price": 50000.0,
+      "description": "Супергаджет",
+      "image": "images/samsungs8.webp",
+      "category__name": "Смартфоны",
+      "for_main": true
+    },
+    {
+      "article": "0014",
+      "name": "Pixel 2",
+      "price": 20000.0,
+      "description": "Неплохой телефон",
+      "image": "images/pixel2_WjsdNlV.webp",
+      "category__name": "Смартфоны",
+      "for_main": false
+    },
+    {
+      "article": "0012",
+      "name": "iPhone 7",
+      "price": 60000.0,
+      "description": "Классная камера",
+      "image": "images/iphone7_JJ4ht8k.webp",
+      "category__name": "Смартфоны",
+      "for_main": true
+    },
+    {
+      "article": "0010",
+      "name": "Nexus 5x",
+      "price": 40000.0,
+      "description": "Лучшее соотношение цена/качество",
+      "image": "images/nexus5x_c4njdrV.webp",
+      "category__name": "Смартфоны",
+      "for_main": true
+    }
+  ],
+  "Clothes": [
+    {
+      "article": "0902",
+      "name": "Тельняшка",
+      "price": 999.0,
+      "description": "Стильная вещица",
+      "image": "images/fufajka_VnphhXm.jpg"
+    },
+    {
+      "article": "090111",
+      "name": "Футболка",
+      "price": 599.0,
+      "description": "Очень модная",
+      "image": "images/15207039_26305058_1000.webp"
+    }
+  ]
+}

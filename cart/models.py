@@ -18,7 +18,7 @@ class Cart(models.Model):
 
 
 class Order(models.Model):
-    pay_date = models.DateField(verbose_name='Дата заказа', auto_now=True)
+    pay_date = models.DateField(verbose_name='Дата заказа', auto_now_add=True)
     is_paid = models.BooleanField(verbose_name='Оплачен', default=False)
     user = models.ForeignKey('account.CustomUser',
                              on_delete=models.CASCADE,
@@ -31,4 +31,10 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы покупателей'
 
     def __str__(self):
-        return f'№ {self.id} от {self.pay_date}'
+        counts = self.products.all().values('count')
+        count = sum(map(lambda foo: foo['count'], counts))
+        return '{} : Заказ № {}  от {} , товаров - {}. {}'.format(self.user.username,
+                                                                  self.id,
+                                                                  self.pay_date,
+                                                                  count,
+                                                                  "Оплачен" if self.is_paid else "")
