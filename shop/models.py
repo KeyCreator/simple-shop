@@ -65,6 +65,12 @@ class Clothes(Product):
 
 
 class Сomment(models.Model):
+    name = models.CharField(verbose_name='Имя пользователя', max_length=NAME_LENGTH, blank=False, null=False)
     content = models.TextField(verbose_name='Содержание', blank=False, null=False)
     estimation = models.IntegerField(verbose_name='Оценка', choices=ESTIMATE_CHOICES, blank=False, null=False)
+    session_id = models.CharField(verbose_name='Ключ сессии', max_length=NAME_LENGTH, blank=False, null=False)
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='comments')
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы о товарах'
