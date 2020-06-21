@@ -5,8 +5,7 @@
 1. По хранению изображений. image = models.ImageField(uploadto='images', storage=STORAGE) использовал для того, чтобы в базе хранился относительный путь до файла изборажений. Иначе у меня всё прописывается абсолютным путем, и я не представляю, как этот файл будет найден при разворачивании проекта на другой машине.
 
 План работ по дипломному проекту
-1. Уточнить требуемый функционал к админской части
-    * Не очень нравится что а админке не все переведено [фото](http://e.customeriomail.com/e/c/eyJlbWFpbF9pZCI6IlJPLUNBUUVBQVhMSDBpYmhWUmJTYTg4dU5XaTBiUT09IiwiaHJlZiI6Imh0dHBzOi8vcy5tYWlsLnJ1LzlKYnkvZ3NWVkJwVWZuIiwicG9zaXRpb24iOjd9/3b88f3b42ebb3fc8d1a9cb4385d9dc72a0d6c3655f14a79efa0ea7b38c852768)
+1. Уточнить требуемый функционал к админской части    
     * Отображать в админке в форме product m2m-связь с пользователями через корзину
 1. Сделать в хедере стилистическое отображение `username`
 1. Выровнить размер фотографий на главной странице
@@ -43,3 +42,4 @@
 1. Реализован метод для отображения цены в формате # ##0.00
 1. Протестировал корзину на нескольких пользователях
 1. Реализована возможность регистрации по почте (без подтверждения почты).
+1. Руссифицировал название приложений в админке [фото](http://e.customeriomail.com/e/c/eyJlbWFpbF9pZCI6IlJPLUNBUUVBQVhMSDBpYmhWUmJTYTg4dU5XaTBiUT09IiwiaHJlZiI6Imh0dHBzOi8vcy5tYWlsLnJ1LzlKYnkvZ3NWVkJwVWZuIiwicG9zaXRpb24iOjd9/3b88f3b42ebb3fc8d1a9cb4385d9dc72a0d6c3655f14a79efa0ea7b38c852768)

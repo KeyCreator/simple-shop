@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
 
-class CustomerConfig(AppConfig):
+class AccountConfig(AppConfig):
     name = 'account'
+    verbose_name = 'Покупатели'
