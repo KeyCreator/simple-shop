@@ -64,13 +64,17 @@ class Clothes(Product):
         verbose_name_plural = 'Одежда'
 
 
-class Сomment(models.Model):
+class Remark(models.Model):
     name = models.CharField(verbose_name='Имя пользователя', max_length=NAME_LENGTH, blank=False, null=False)
     content = models.TextField(verbose_name='Содержание', blank=False, null=False)
     estimation = models.IntegerField(verbose_name='Оценка', choices=ESTIMATE_CHOICES, blank=False, null=False)
     session_id = models.CharField(verbose_name='Ключ сессии', max_length=NAME_LENGTH, blank=False, null=False)
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='comments')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='remarks')
 
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы о товарах'
+
+
+    def __str__(self):
+        return f'{self.product.name} -> {self.name}: {self.estimation}'

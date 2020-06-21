@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from urllib.parse import urlencode
 
-from .models import Product, Category, Phone, Clothes
+from .models import Product, Category, Phone, Clothes, Remark
 from .utils import get_products_paginator
 from .forms import ProductForm
 
@@ -64,3 +64,25 @@ class ProductDetailView(DetailView):
     template_name = 'product.html'
     context_object_name = 'product'
     pk_url_kwarg = 'product_id'
+
+def remark_add(request, product_id):
+
+    try:
+        product = Product.objects.get(id=product_id)
+    except Order.DoesNotExist:
+        return render(request, 'empty_section.html', {'message': f'Ошибка: Товар id={product_id} не найден'})
+
+    if Remark.objects.filter(session_id=request.session.session_key, product=product).count():
+        remark = Remark.objects.get(session_id=request.session.session_key, product=product)
+    else:
+        remark = Remark()
+        remark.session_id = request.session.session_key
+        remark.product = product
+
+    remark.name = request.POST['name']
+    remark.content = request.POST['description']
+    remark.estimation = request.POST['mark']
+
+    remark.save()
+
+    return redirect(request.META.get('HTTP_REFERER'))

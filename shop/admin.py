@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Phone, Category, Clothes    # , Product
+from .models import Phone, Category, Clothes, Remark
 
 from cart.models import Cart, Order
 
@@ -44,6 +44,6 @@ class ClothesAdmin(admin.ModelAdmin):
     ordering = ('-id',)
 
 
-# @admin.register(Product)
-# class ProductAdmin(admin.ModelAdmin):
-#     ordering = ('-id',)
+@admin.register(Remark)
+class RemarkAdmin(admin.ModelAdmin):
+    ordering = ('-id',)
