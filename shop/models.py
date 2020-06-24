@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+from utils.overriding import slugify
+
 
 NAME_LENGTH = 128
 DESCRIPTION_LENGTH = 256
@@ -32,12 +34,10 @@ class Product(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=NAME_LENGTH, verbose_name='Наименование', unique=True, blank=False, null=False)
-    parent = models.ForeignKey('self',
-                               verbose_name='Состоит в',
-                               on_delete=models.DO_NOTHING,
-                               null=True,
-                               blank=True,
-                               related_name='followers')
+    group = models.ForeignKey('Group', verbose_name='Состоит в группе',
+                              on_delete=models.CASCADE,
+                              related_name='categories')
+    slug = models.SlugField(unique=True, blank=True, null=False)
 
     class Meta:
         verbose_name = 'Категория'
@@ -46,6 +46,25 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        print('self.slug =', self.slug)
+        super(Category, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return "/category/"
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=NAME_LENGTH, verbose_name='Наименование', unique=True, blank=False, null=False)
+    position = models.IntegerField(verbose_name='Сортировка в меню', default=10, blank=False, null=False)
+
+    class Meta:
+        verbose_name = 'Группа товарных категорий'
+        verbose_name_plural = 'Пункты меню сайта'
+
+    def __str__(self):
+        return self.name
 
 class Phone(Product):
     category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='products')
@@ -74,7 +93,6 @@ class Remark(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы о товарах'
-
 
     def __str__(self):
         return f'{self.product.name} -> {self.name}: {self.estimation}'

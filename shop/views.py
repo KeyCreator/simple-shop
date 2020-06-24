@@ -40,10 +40,11 @@ class HomeView(TemplateView):
 class CategoryView(TemplateView):
     template_name = 'category.html'
 
-    def get(self, request, category_id):
+    def get(self, request, slug):
 
+        # slug = request.GET.get('slug')
         try:
-            category = Category.objects.get(id=category_id)
+            category = Category.objects.get(slug=slug)
         except Category.DoesNotExist:
             raise Http404("Такой категории товаров не существует")
 
