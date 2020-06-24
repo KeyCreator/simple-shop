@@ -4,7 +4,7 @@ import os
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from shop.models import Phone, Clothes, Category
+from shop.models import Phone, Clothes, Category, Group
 
 
 JSON_FILE = 'fixtures.json'
@@ -16,20 +16,28 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         print(self.help)
-        path = os.path.join(settings.BASE_DIR, JSON_FILE)
 
-        phones = Phone.objects.all().select_related('category')
-        phones = phones.values('article', 'name', 'price', 'description', 'image', 'category__name', 'for_main')
+        phones = []
+        for phone in Phone.objects.all().select_related('category'):
+            phones.append({'article': phone.article,
+                       'name': phone.name,
+                       'price': phone.price,
+                       'description': phone.description,
+                       'image': str(phone.image),
+                       'category': phone.category.name,
+                       'group': phone.category.group.name,
+                       'for_main': phone.for_main})
 
         clothes = Clothes.objects.all()
-        clothes = clothes.values('article', 'name', 'price', 'description', 'image')
+        clothes = list(clothes.values('article', 'name', 'price', 'description', 'image'))
 
-        products = {'Phone': list(phones), 'Clothes': list(clothes)}
-
+        products = {'Phones': phones, 'Clothes': clothes}
+        print(products)
+        path = os.path.join(settings.BASE_DIR, JSON_FILE)
         with open(path, 'w') as file:
             json.dump(products,
                       file,
                       ensure_ascii=False,
                       indent=2)
 
-        print(f'Файл {JSON_FILE} сформирвоан в папке проекта')
+        print(f'Файл {JSON_FILE} сформирован в папке проекта')

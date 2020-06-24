@@ -35,7 +35,7 @@
             {% for category in group.categories.all %}
                     <div class="dropdown-menu" aria-labelledby="dropdown{{ category.id }}">
                             <a class="dropdown-item"
-                               href="{{ category.get_absolute_url }}{{ category.slug }}">
+                               href="{{ category.get_absolute_url }}">
                                 {{ category }}</a>
                     </div>
             {% endfor %}
@@ -48,7 +48,7 @@
       {% endfor %}
 
     </ul>
-    <h5><font color="#ffffff">{{ account_name }}</font></h5>
+      <a class="navbar-brand"><font color="#FFFFFF">{{ account_name }}</font>></a>
 
     {% if is_authenticated %}
       <a class="btn btn-outline-success my-2 my-sm-0" role="button"

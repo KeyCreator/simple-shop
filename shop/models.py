@@ -52,7 +52,7 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return "/category/"
+        return "/category/%s/" % self.slug
 
 
 class Group(models.Model):
@@ -67,7 +67,7 @@ class Group(models.Model):
         return self.name
 
 class Phone(Product):
-    category = models.ForeignKey('Category', on_delete=models.DO_NOTHING, related_name='products')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='products')
     for_main = models.BooleanField(verbose_name='Размещать на главной странице', default=False, blank=False, null=False)
 
     class Meta:

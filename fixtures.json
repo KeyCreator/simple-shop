@@ -1,12 +1,13 @@
 {
-  "Phone": [
+  "Phones": [
     {
       "article": "0016",
       "name": "Samsung Galaxy Note 8",
       "price": 50000.0,
       "description": "Супергаджет",
       "image": "images/samsungs8.webp",
-      "category__name": "Смартфоны",
+      "category": "Смартфоны",
+      "group": "Гаджеты",
       "for_main": true
     },
     {
@@ -15,7 +16,8 @@
       "price": 20000.0,
       "description": "Неплохой телефон",
       "image": "images/pixel2_WjsdNlV.webp",
-      "category__name": "Смартфоны",
+      "category": "Смартфоны",
+      "group": "Гаджеты",
       "for_main": false
     },
     {
@@ -24,7 +26,8 @@
       "price": 60000.0,
       "description": "Классная камера",
       "image": "images/iphone7_JJ4ht8k.webp",
-      "category__name": "Смартфоны",
+      "category": "Смартфоны",
+      "group": "Гаджеты",
       "for_main": true
     },
     {
@@ -33,7 +36,8 @@
       "price": 40000.0,
       "description": "Лучшее соотношение цена/качество",
       "image": "images/nexus5x_c4njdrV.webp",
-      "category__name": "Смартфоны",
+      "category": "Смартфоны",
+      "group": "Гаджеты",
       "for_main": true
     }
   ],
