@@ -1,7 +1,5 @@
-from django.conf import settings
-
 from .models import Group
-from cart.utils import get_cart_message
+from utils.menu_items import get_cart_message
 
 
 def menu_items(request):

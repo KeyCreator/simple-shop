@@ -1,16 +1,10 @@
-from django.shortcuts import render, redirect, reverse
-from django.views.generic import TemplateView, ListView
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.core.paginator import Paginator
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
-from urllib.parse import urlencode
+from django.http import Http404
 
 from .models import Product, Category, Phone, Clothes, Remark
-from .utils import get_products_paginator
-from .forms import ProductForm
-
-from cart.models import Cart
+from utils.paginators import get_products_paginator
 
 
 class HomeView(TemplateView):
@@ -66,11 +60,12 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
     pk_url_kwarg = 'product_id'
 
+
 def remark_add(request, product_id):
 
     try:
         product = Product.objects.get(id=product_id)
-    except Order.DoesNotExist:
+    except Product.DoesNotExist:
         return render(request, 'empty_section.html', {'message': f'Ошибка: Товар id={product_id} не найден'})
 
     if Remark.objects.filter(session_id=request.session.session_key, product=product).count():

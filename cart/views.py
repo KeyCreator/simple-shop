@@ -1,8 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from django.views.generic.detail import DetailView
-
 
 from .models import Cart, Order
 from shop.models import Product

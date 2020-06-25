@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import CustomUser
 
@@ -12,12 +11,16 @@ class AuthView(TemplateView):
     def post(self, request):
 
         if request.POST['password'] != request.POST['password2']:
-            return render(request, self.template_name, {'invalid_password2': 'Пароль не совпал'})
+            return render(request,
+                          self.template_name,
+                          {'invalid_password2': 'Пароль не совпал'})
         password = request.POST['password']
 
         email = request.POST['email']
         if CustomUser.objects.filter(email=email).count():
-            return render(request, self.template_name, {'invalid_email': 'Пользователь с таким email существует'})
+            return render(request,
+                          self.template_name,
+                          {'invalid_email': 'Пользователь с таким email существует'})
 
         user = CustomUser()
         user.username, user.email = email, email

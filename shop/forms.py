@@ -1,7 +1,5 @@
 from django import forms
 
-from .models import Phone
-
 
 class ProductForm(forms.Form):
     name = forms.CharField()

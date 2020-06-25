@@ -1,4 +1,4 @@
-from .models import Cart, Order
+from cart.models import Cart, Order
 
 
 def get_cart_message(request):

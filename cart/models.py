@@ -1,8 +1,5 @@
 from django.db import models
 
-from account.models import CustomUser
-from shop.models import Product
-
 
 class Cart(models.Model):
     product = models.ForeignKey('shop.Product', on_delete=models.CASCADE)

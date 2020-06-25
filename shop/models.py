@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from PIL import Image
 
 from utils.overriding import slugify
 
@@ -19,9 +20,9 @@ class Product(models.Model):
     description = models.CharField(max_length=DESCRIPTION_LENGTH, verbose_name='Описание', default='')
     image = models.ImageField(upload_to='images', storage=STORAGE)
     orders = models.ManyToManyField('cart.Order',
-                                   through='cart.Cart',
-                                   through_fields=('product', 'order'),
-                                   related_name='goods')
+                                    through='cart.Cart',
+                                    through_fields=('product', 'order'),
+                                    related_name='goods')
 
     class Meta:
         verbose_name = 'Товар'
@@ -30,6 +31,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        ''' Конвертируемп изображение в "квадратный" формат
+
+        '''
+        super(Product, self).save(*args, **kwargs)
+
+        # Проверяем, задано ли изображение
+        if self.image:
+            image = Image.open(self.image.path)
+            width, height = self.image.width, self.image.height
+            min_size = min(width, height)
+
+            print('Размер изображения ', width, height)
+            if width != height:
+                image = image.resize((min_size, min_size), Image.ANTIALIAS)
+                image.save(self.image.path)
+                image.seek(0)
 
 
 class Category(models.Model):
@@ -65,6 +84,7 @@ class Group(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Phone(Product):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='products')

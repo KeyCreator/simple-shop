@@ -14,5 +14,3 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [
         CartInline,
     ]
-
-
