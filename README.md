@@ -1,6 +1,11 @@
 ## Проект простого Интернет-магазина
 ### Инструкция по установке и первому запуску 
 
+Установить зависимости:
+
+```bash
+pip install -r requirements.txt
+```
 
 Провести миграцию:
 
@@ -21,7 +26,7 @@ python manage.py loaddata fixtures.json
 python manage.py createsuperuser
 ```
 
-Запустить  веб-сервер проекта:
+Запустить веб-сервер проекта:
 
 ```bash
 python manage.py runserver
